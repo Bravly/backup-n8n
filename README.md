@@ -1,4 +1,4 @@
-Made by the [Graplia](https://graplia.com) team
+## Check out the new web interface https://graplia.com/n8n-backup
 
 **n8n Backup CLI**
 - Simple Node.js CLI (TypeScript) to export/backup data from an n8n instance.
@@ -109,3 +109,6 @@ API
 Notes
 - Restricted endpoints (by license) are skipped in programmatic API as well; the result still contains other resources and index.
 - For very large exports, this API returns a single Buffer; if you need a streaming API, open an issue and we can add a stream-based variant.
+
+
+## See also [Graplia - n8n workflow AI Maker](https://graplia.com)
