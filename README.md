@@ -1,3 +1,5 @@
+Made by the [Graplia](https://graplia.com) team
+
 **n8n Backup CLI**
 - Simple Node.js CLI (TypeScript) to export/backup data from an n8n instance.
 
