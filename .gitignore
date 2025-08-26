@@ -1,0 +1,9 @@
+node_modules/
+backups/
+.DS_Store
+npm-debug.log*
+package-lock.json
+test/.env
+test/**/.env
+test/coverage/
+coverage/
