@@ -57,3 +57,55 @@ Found 12 workflows.
 Creating archive: backups/n8n-example-20240101-120000.zip
 ✓ Done. Archived to backups/n8n-example-20240101-120000.zip
 ```
+
+**Programmatic API**
+
+Use this project from code to generate a ZIP buffer you can save or stream.
+
+- Import (package): `import { downloadBackup } from 'backup-n8n'`
+- Import (local dev): `import { downloadBackup } from './dist/api'`
+
+Example (TypeScript/ESM):
+
+```ts
+import { writeFileSync } from 'fs';
+import { downloadBackup } from 'backup-n8n';
+
+async function run() {
+  const buf = await downloadBackup(
+    'https://n8n.example.com',
+    'API_KEY_HERE',
+    {
+      pretty: true,
+      insecure: false, // allow self-signed if true
+      include: {
+        // if any are set, only those resources are exported; otherwise all are exported
+        workflows: true,
+        users: true,
+        executions: true,
+        tags: true,
+        variables: true,
+        projects: true,
+      },
+    }
+  );
+  writeFileSync('backup.zip', buf);
+}
+
+run().catch(console.error);
+```
+
+API
+- `downloadBackup(baseUrl: string, apiKey: string, options?: DownloadOptions): Promise<Buffer>`
+  - Returns a ZIP `Buffer` containing:
+    - `workflows/<id>-<slug(name)>.json` for each workflow
+    - Aggregate files: `users.json`, `executions.json`, `tags.json`, `variables.json`, `projects.json` (only when available and included)
+    - `index.json` with counts and workflow metadata
+  - `DownloadOptions`:
+    - `insecure?: boolean` — allow self-signed TLS certs
+    - `pretty?: boolean` — pretty-print JSON in files
+    - `include?: { workflows?, users?, executions?, tags?, variables?, projects? }` — select resources; if none are set, all are included by default
+
+Notes
+- Restricted endpoints (by license) are skipped in programmatic API as well; the result still contains other resources and index.
+- For very large exports, this API returns a single Buffer; if you need a streaming API, open an issue and we can add a stream-based variant.

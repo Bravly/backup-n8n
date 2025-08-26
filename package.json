@@ -1,10 +1,11 @@
 {
   "name": "backup-n8n",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Backup all workflows from an n8n instance via CLI.",
   "bin": {
     "backup-n8n": "bin/n8n-backup.js"
   },
+  "main": "dist/api.js",
   "type": "commonjs",
   "license": "MIT",
   "engines": {
